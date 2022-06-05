@@ -5,13 +5,6 @@ public class Student {
     private String name;
     private int age;
     private Faculty faculty;
-
-/*    public Student(String name, int age, Faculty faculty) {
-        this.name = name;
-        this.age = age;
-        this.faculty = faculty;
-    }*/
-
     @Override
     public int hashCode() {
         return super.hashCode();

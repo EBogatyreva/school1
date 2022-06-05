@@ -13,21 +13,6 @@ import java.util.stream.Collectors;
 public class FacultyService {
     private Long getId = 1L;
     private Map<Long, Faculty> facultyMap = new HashMap<>();
-
-/*    private Long getId() {
-        Long result = index;
-        index = index + 1;
-        return result;
-    }*/
-
-/*    public FacultyService() {
-        this.facultyMap = new HashMap<>();
-        facultyMap.put(getId(), new Faculty("Гриффиндор", "красно-желтый"));
-        facultyMap.put(getId(), new Faculty("Слизерин", "зеленый"));
-        facultyMap.put(getId(), new Faculty("Когтевран", "красно-желтый"));
-        facultyMap.put(getId(), new Faculty("Пуффендуй", "желтый"));
-    }*/
-
     public Faculty createFacility(Faculty faculty) {
         facultyMap.put(getId, faculty);
         getId++;

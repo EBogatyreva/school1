@@ -13,7 +13,6 @@ import java.util.Collection;
 @RequestMapping("student")
 public class StudentController {
     private final StudentService studentService;
-
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -24,7 +23,7 @@ public class StudentController {
         return ResponseEntity.ok(createStudent);
     }
 
-    @GetMapping("{userId}")
+    @GetMapping("{id}")
     public ResponseEntity getStudent(@PathVariable Long id) {
         Student getStudent = studentService.getStudentById(id);
         if (getStudent == null) {
@@ -33,13 +32,13 @@ public class StudentController {
         return ResponseEntity.ok(getStudent);
     }
 
-    @PutMapping("upDate")
-    public ResponseEntity updateStudent(@RequestBody Student student) {
-        Student updateStudent = studentService.updateStudent(student.getId(), student);
+    @PutMapping("update/{id}")
+    public ResponseEntity updateStudent(@PathVariable Long id, @RequestBody Student student) {
+        Student updateStudent = studentService.updateStudent(id, student);
         return ResponseEntity.ok(updateStudent);
     }
 
-    @DeleteMapping("delete")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity deleteStudent(@RequestBody Long id) {
         Student deleteStudent = studentService.deleteStudent(id);
         return ResponseEntity.ok(deleteStudent);
