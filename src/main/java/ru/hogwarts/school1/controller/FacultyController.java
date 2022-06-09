@@ -34,20 +34,20 @@ public class FacultyController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity updatefaculty(@PathVariable Long id, @RequestBody Faculty faculty) {
-        Faculty updateFaculty = facultyService.updateFaculty(id, faculty);
+    public ResponseEntity updatefaculty(@RequestBody Faculty faculty) {
+        Faculty updateFaculty = facultyService.updateFaculty(faculty);
         return ResponseEntity.ok(updateFaculty);
     }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity deletefaculty(@PathVariable Long id) {
-        Faculty deleteFaculty = facultyService.deleteFaculty(id);
-        return ResponseEntity.ok(deleteFaculty);
+        facultyService.deleteFaculty(id);
+        return ResponseEntity.ok().build();
     }
     @GetMapping("/find")
     public Collection<Faculty> find(@RequestParam(required = true) String color) throws NotFoundException {
         if (color != null) {
-            return facultyService.findFaculty(color);
+            return facultyService.findByColorLike(color);
         } else {
             throw new BadRequest();
         }

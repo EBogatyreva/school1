@@ -17,7 +17,7 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping("create")
+    @PostMapping
     public ResponseEntity createStudent(@RequestBody Student student) {
         Student createStudent = studentService.createStudent(student);
         return ResponseEntity.ok(createStudent);
@@ -33,21 +33,21 @@ public class StudentController {
     }
 
     @PutMapping("update/{id}")
-    public ResponseEntity updateStudent(@PathVariable Long id, @RequestBody Student student) {
-        Student updateStudent = studentService.updateStudent(id, student);
+    public ResponseEntity updateStudent(@RequestBody Student student) {
+        Student updateStudent = studentService.updateStudent(student);
         return ResponseEntity.ok(updateStudent);
     }
 
     @DeleteMapping("delete/{id}")
-    public ResponseEntity deleteStudent(@RequestBody Long id) {
-        Student deleteStudent = studentService.deleteStudent(id);
-        return ResponseEntity.ok(deleteStudent);
+    public ResponseEntity deleteStudent(@PathVariable Long id) {
+        studentService.deleteStudent(id);
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/find")
     public Collection<Student> find(@RequestParam(required = true) int age) throws NotFoundException {
         if (age > 0) {
-            return studentService.findStudent(age);
+            return studentService.findByAge(age);
         } else {
             throw new BadRequest();
         }

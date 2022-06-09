@@ -1,10 +1,18 @@
 package ru.hogwarts.school1.model;
 
+import javax.persistence.*;
+
+@Entity
 public class Student {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private int age;
+    @ManyToOne
+    @JoinColumn(name = "faculty_id")
     private Faculty faculty;
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -38,7 +46,8 @@ public class Student {
     public void setAge(int age) {
         this.age = age;
     }
-//__________________________
+
+    //__________________________
     public Faculty getFaculty() {
         return faculty;
     }
@@ -49,6 +58,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return "{"+getId()+"Имя " + getName() + " возраст " + getAge() + " факультет " + getFaculty() + '}';
+        return "{" + getId() + "Имя " + getName() + " возраст " + getAge() + " факультет " + getFaculty() + '}';
     }
 }

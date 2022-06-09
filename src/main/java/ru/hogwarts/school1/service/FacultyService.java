@@ -1,40 +1,46 @@
 package ru.hogwarts.school1.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school1.exception.NotFoundException;
 import ru.hogwarts.school1.model.Faculty;
+import ru.hogwarts.school1.repository.FacultyRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
+
+    private final FacultyRepository facultyRepository;
+
+    @Autowired
+    public FacultyService(FacultyRepository facultyRepository) {
+        this.facultyRepository = facultyRepository;
+    }
+
     private Long getId = 1L;
-    private Map<Long, Faculty> facultyMap = new HashMap<>();
+
     public Faculty createFacility(Faculty faculty) {
-        facultyMap.put(getId, faculty);
-        getId++;
-        return faculty;
+        return facultyRepository.save(faculty);
     }
 
     public Faculty getFacultyById(Long facilityId) {
-        return facultyMap.get(facilityId);
+        return facultyRepository.findById(facilityId).get();
     }
 
-    public Faculty updateFaculty(Long facilityId, Faculty faculty) {
-        facultyMap.put(getId, faculty);
+    public Faculty updateFaculty(Faculty faculty) {//сделать обновление по ID
+        facultyRepository.save(faculty);
         return faculty;
     }
 
-    public Faculty deleteFaculty(Long facilityId) {
-        return facultyMap.remove(facilityId);
+    public void deleteFaculty(Long facilityId) {
+        facultyRepository.deleteById(facilityId);
     }
 
-    public Collection<Faculty> findFaculty(String color) throws NotFoundException {
-        return facultyMap.values().stream()
-                .filter(students -> students.getColor().equals(color))
-                .collect(Collectors.toList());
+    public List<Faculty> findByColorLike(String color) {
+        return facultyRepository.findByColor(color);
     }
+
 }
