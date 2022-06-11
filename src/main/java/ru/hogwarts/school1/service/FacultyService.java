@@ -7,11 +7,9 @@ import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.FacultyRepository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FacultyService {
-    private Student student;
     private final FacultyRepository facultyRepository;
 
     @Autowired
@@ -40,8 +38,8 @@ public class FacultyService {
         return facultyRepository.findByColor(color);
     }
 
-    public List<Faculty> findFacultyByNameOrColor(String name, String color) {
-        return facultyRepository.findFacultyByNameOrColor(name, color);
+    public List<Faculty> findFacultyByNameOrColor(String something) {
+        return facultyRepository.findFacultyByNameOrColor(something);
     }
     public List <Student>findStudents(Long faculty) {
         Faculty faculty1 = facultyRepository.findById(faculty).get();

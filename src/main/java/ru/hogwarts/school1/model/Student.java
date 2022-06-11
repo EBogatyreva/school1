@@ -52,9 +52,10 @@ public class Student {
     public Faculty getFaculty() {
         return faculty;
     }
-/*    public Faculty setFaculty(Faculty faculty) {
+
+    public Faculty setFaculty(Faculty faculty) {
         return this.faculty = faculty;
-    }*/
+    }
 
     @Override
     public String toString() {

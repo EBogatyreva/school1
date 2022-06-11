@@ -54,6 +54,10 @@ public class Faculty {
         return (List<Student>) students;
     }
 
+    public List<Student> setStudents() {
+        return (List<Student>) (this.students = students);
+    }
+
     @Override
     public String toString() {
         return getName() + getColor() + getId();

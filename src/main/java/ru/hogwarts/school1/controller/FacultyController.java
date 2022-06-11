@@ -57,9 +57,9 @@ public class FacultyController {
     }
 
     @GetMapping("/findFacultyByNameOrColor")
-    public Collection<Faculty> findFacultyByNameOrColor(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
-        if ((name != null) || (color != null)) {
-            return facultyService.findFacultyByNameOrColor(name, color);
+    public Collection<Faculty> findFacultyByNameOrColor(@RequestParam(required = false) String something) {
+        if (something != null) {
+            return facultyService.findFacultyByNameOrColor(something);
         } else {
             throw new BadRequest();
         }
