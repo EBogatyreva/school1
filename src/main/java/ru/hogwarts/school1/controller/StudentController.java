@@ -2,6 +2,7 @@ package ru.hogwarts.school1.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school1.model.Faculty;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.service.StudentService;
 import ru.hogwarts.school1.exception.BadRequest;
@@ -63,7 +64,7 @@ public class StudentController {
     }
 
     @GetMapping("/findFaculty")
-    public String findFaculty(@RequestParam(required = true) Long studentId) throws NotFoundException {
+    public Faculty findFaculty(@RequestParam(required = true) Long studentId) throws NotFoundException {
         if (studentId > 0) {
             return studentService.findFaculty(studentId);
         } else {

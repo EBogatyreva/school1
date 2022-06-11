@@ -49,15 +49,15 @@ public class Student {
     }
 
     //__________________________
-    public Faculty getFacultyById() {
+    public Faculty getFaculty() {
         return faculty;
     }
-    public Faculty setFaculty(Faculty faculty) {
+/*    public Faculty setFaculty(Faculty faculty) {
         return this.faculty = faculty;
-    }
+    }*/
 
     @Override
     public String toString() {
-        return "{" + getId() + "Имя " + getName() + " возраст " + getAge() + " факультет " + getFacultyById() + '}';
+        return "{" + getId() + "Имя " + getName() + " возраст " + getAge() + /*" факультет " + getFacultyById() +*/ '}';
     }
 }

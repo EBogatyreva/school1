@@ -50,6 +50,10 @@ public class Faculty {
         this.id = id;
     }
 
+    public List<Student> getStudents() {
+        return (List<Student>) students;
+    }
+
     @Override
     public String toString() {
         return getName() + getColor() + getId();

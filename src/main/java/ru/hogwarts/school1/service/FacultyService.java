@@ -2,16 +2,12 @@ package ru.hogwarts.school1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school1.exception.NotFoundException;
 import ru.hogwarts.school1.model.Faculty;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.FacultyRepository;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @Service
 public class FacultyService {
@@ -47,9 +43,8 @@ public class FacultyService {
     public List<Faculty> findFacultyByNameOrColor(String name, String color) {
         return facultyRepository.findFacultyByNameOrColor(name, color);
     }
-
-    public List<Student> findStudents(Long faculty) {
-        if ()
-        return students;
+    public List <Student>findStudents(Long faculty) {
+        Faculty faculty1 = facultyRepository.findById(faculty).get();
+        return faculty1.getStudents();
     }
 }

@@ -2,15 +2,11 @@ package ru.hogwarts.school1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school1.exception.NotFoundException;
+import ru.hogwarts.school1.model.Faculty;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.StudentRepository;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class StudentService {
@@ -47,9 +43,9 @@ public class StudentService {
         return studentRepository.findByAgeBetween(min, max);
     }
 
-    public String findFaculty(Long studentId) {
-        if ()
-            return faculty;
+    public Faculty findFaculty(Long studentId) {
+        Student student1 = studentRepository.findById(studentId).get();
+        return student1.getFaculty();
     }
 
 }

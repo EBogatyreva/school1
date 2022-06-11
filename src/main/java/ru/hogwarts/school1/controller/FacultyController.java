@@ -9,6 +9,7 @@ import ru.hogwarts.school1.exception.BadRequest;
 import ru.hogwarts.school1.exception.NotFoundException;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("faculty")
@@ -65,7 +66,7 @@ public class FacultyController {
     }
 
     @GetMapping("/findStudentsByFaculty")
-    public Collection<Student> find(@RequestParam(required = true) Long faculty) throws NotFoundException {
+    public List<Student> find(@RequestParam(required = true) Long faculty) throws NotFoundException {
         if (faculty != null) {
             return facultyService.findStudents(faculty);
         } else {
