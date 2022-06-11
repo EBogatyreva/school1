@@ -1,9 +1,10 @@
 package ru.hogwarts.school1.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
+
 @Entity
 public class Faculty {
     @Id
@@ -11,6 +12,10 @@ public class Faculty {
     private Long id;
     private String name;
     private String color;
+
+    @OneToMany(mappedBy = "faculty")
+    private Collection<Student> students;
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -37,8 +42,16 @@ public class Faculty {
         this.color = color;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
-        return getName()+getColor();
+        return getName() + getColor() + getId();
     }
 }

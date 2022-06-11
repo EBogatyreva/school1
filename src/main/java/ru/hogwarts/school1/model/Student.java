@@ -9,6 +9,7 @@ public class Student {
     private Long id;
     private String name;
     private int age;
+
     @ManyToOne
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
@@ -48,16 +49,15 @@ public class Student {
     }
 
     //__________________________
-    public Faculty getFaculty() {
+    public Faculty getFacultyById() {
         return faculty;
     }
-
     public Faculty setFaculty(Faculty faculty) {
         return this.faculty = faculty;
     }
 
     @Override
     public String toString() {
-        return "{" + getId() + "Имя " + getName() + " возраст " + getAge() + " факультет " + getFaculty() + '}';
+        return "{" + getId() + "Имя " + getName() + " возраст " + getAge() + " факультет " + getFacultyById() + '}';
     }
 }

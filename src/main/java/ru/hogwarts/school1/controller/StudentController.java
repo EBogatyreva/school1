@@ -53,4 +53,22 @@ public class StudentController {
         }
     }
 
+    @GetMapping("/findByAgeBetween")
+    public Collection<Student> findByAgeBetween(@RequestParam(required = true) int min, @RequestParam (required = true)int max) throws NotFoundException {
+        if (max > 0) {
+            return studentService.findByAgeBetween(min, max);
+        } else {
+            throw new BadRequest();
+        }
+    }
+
+    @GetMapping("/findFaculty")
+    public String findFaculty(@RequestParam(required = true) Long studentId) throws NotFoundException {
+        if (studentId > 0) {
+            return studentService.findFaculty(studentId);
+        } else {
+            throw new BadRequest();
+        }
+    }
+
 }

@@ -22,8 +22,6 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    private Long getId = 1L;
-
     public Student createStudent(Student student) {
         return studentRepository.save(student);
     }
@@ -43,6 +41,15 @@ public class StudentService {
 
     public List<Student> findByAge(int age) {
         return studentRepository.findByAge(age);
+    }
+
+    public List<Student> findByAgeBetween (int min, int max){
+        return studentRepository.findByAgeBetween(min, max);
+    }
+
+    public String findFaculty(Long studentId) {
+        if ()
+            return faculty;
     }
 
 }
