@@ -14,6 +14,10 @@ public class Student {
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
+    @OneToOne
+    @JoinColumn(name = "avatar_id")
+    private Avatar avatar;
+
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -59,6 +63,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return "{" + getId() + "Имя " + getName() + " возраст " + getAge() + /*" факультет " + getFacultyById() +*/ '}';
+        return "{" + getId() + "Имя " + getName() + " возраст " + getAge() + " факультет " + getFaculty() + '}';
     }
 }

@@ -50,12 +50,12 @@ public class Faculty {
         this.id = id;
     }
 
-    public List<Student> getStudents() {
-        return (List<Student>) students;
+    public Collection<Student> getStudents() {
+        return students;
     }
 
-    public List<Student> setStudents() {
-        return (List<Student>) (this.students = students);
+    public Collection<Student> setStudents() {
+        return this.students = students;
     }
 
     @Override

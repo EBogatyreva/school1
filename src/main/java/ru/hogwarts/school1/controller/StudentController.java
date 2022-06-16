@@ -1,19 +1,24 @@
 package ru.hogwarts.school1.controller;
 
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school1.model.Faculty;
 import ru.hogwarts.school1.model.Student;
+import ru.hogwarts.school1.service.AvatarService;
 import ru.hogwarts.school1.service.StudentService;
 import ru.hogwarts.school1.exception.BadRequest;
 import ru.hogwarts.school1.exception.NotFoundException;
 
+import java.io.IOException;
 import java.util.Collection;
 
 @RestController
 @RequestMapping("student")
 public class StudentController {
     private final StudentService studentService;
+
     public StudentController(StudentService studentService) {
         this.studentService = studentService;
     }
@@ -55,7 +60,7 @@ public class StudentController {
     }
 
     @GetMapping("/findByAgeBetween")
-    public Collection<Student> findByAgeBetween(@RequestParam(required = true) int min, @RequestParam (required = true)int max) throws NotFoundException {
+    public Collection<Student> findByAgeBetween(@RequestParam(required = true) int min, @RequestParam(required = true) int max) throws NotFoundException {
         if (max > 0) {
             return studentService.findByAgeBetween(min, max);
         } else {

@@ -57,16 +57,16 @@ public class FacultyController {
     }
 
     @GetMapping("/findFacultyByNameOrColor")
-    public Collection<Faculty> findFacultyByNameOrColor(@RequestParam(required = false) String something) {
-        if (something != null) {
-            return facultyService.findFacultyByNameOrColor(something);
+    public Collection<Faculty> findFacultyByNameOrColor(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
+        if ((name != null) || (color != null)) {
+            return facultyService.findFacultyByNameOrColor(name, color);
         } else {
             throw new BadRequest();
         }
     }
 
     @GetMapping("/findStudentsByFaculty")
-    public List<Student> find(@RequestParam(required = true) Long faculty) throws NotFoundException {
+    public Collection<Student> find(@RequestParam(required = true) Long faculty) throws NotFoundException {
         if (faculty != null) {
             return facultyService.findStudents(faculty);
         } else {
