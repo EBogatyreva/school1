@@ -39,8 +39,8 @@ public class FacultyService {
         return facultyRepository.findByColor(color);
     }
 
-    public List<Faculty> findFacultyByNameOrColor(String name, String color) {
-        return facultyRepository.findFacultyByNameOrColor(name, color);
+    public List<Faculty> findFacultyByNameOrColor(String something) {
+        return facultyRepository.findFacultyByNameOrColor(something, something);
     }
 
     public Collection<Student> findStudents(Long faculty) {

@@ -1,22 +1,19 @@
 package ru.hogwarts.school1.model;
 
-import nonapi.io.github.classgraph.json.Id;
-
 import javax.persistence.*;
 
 @Entity
 public class Avatar {
-    @javax.persistence.Id
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;//добавила таблицу вручную! и стоблец тоже
+    private Long id;
 
     private String filePath;
     private long fileSize;
     private String mediaType;
-    @Lob
+
     private byte[] data;
-    @OneToOne(mappedBy= "avatar")
+    @OneToOne(mappedBy = "avatar")
     private Student student;
 
 

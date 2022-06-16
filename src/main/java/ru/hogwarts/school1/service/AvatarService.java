@@ -3,6 +3,7 @@ package ru.hogwarts.school1.service;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school1.exception.NotFoundException;
 import ru.hogwarts.school1.model.Avatar;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.AvatarRepository;
@@ -12,11 +13,12 @@ import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 @Service
-@Transactional
+
 public class AvatarService {
     @Value("${student.avatar.dir.path}")
     private String avatarsDir;
@@ -32,8 +34,10 @@ public class AvatarService {
     }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
+        if (studentRepository.findById(studentId).get() == null){ throw new NotFoundException();}
+
         Student student = studentRepository.getById(studentId);
-        Path filePath = Path.of(avatarsDir, student + "." + getExtensions(avatarFile.getOriginalFilename()));
+        Path filePath = Path.of(avatarsDir, student + "." + getExtensions(Objects.requireNonNull(avatarFile.getOriginalFilename())));
         Files.createDirectories(filePath.getParent());
         Files.deleteIfExists(filePath);
         try (
@@ -58,6 +62,7 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long id) {
+        if (studentRepository.findById(id).get() == null){ throw new NotFoundException();}
         return avatarRepository.findById(id).orElseThrow();
     }
 }
