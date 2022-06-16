@@ -2,17 +2,14 @@ package ru.hogwarts.school1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school1.exception.NotFoundException;
 import ru.hogwarts.school1.model.Faculty;
+import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.FacultyRepository;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyService {
-
     private final FacultyRepository facultyRepository;
 
     @Autowired
@@ -20,14 +17,12 @@ public class FacultyService {
         this.facultyRepository = facultyRepository;
     }
 
-    private Long getId = 1L;
-
     public Faculty createFacility(Faculty faculty) {
         return facultyRepository.save(faculty);
     }
 
-    public Faculty getFacultyById(Long facilityId) {
-        return facultyRepository.findById(facilityId).get();
+    public Faculty findFacultyById(Long facility) {
+        return facultyRepository.findById(facility).get();
     }
 
     public Faculty updateFaculty(Faculty faculty) {//сделать обновление по ID
@@ -43,4 +38,11 @@ public class FacultyService {
         return facultyRepository.findByColor(color);
     }
 
+    public List<Faculty> findFacultyByNameOrColor(String something) {
+        return facultyRepository.findFacultyByNameOrColor(something);
+    }
+    public List <Student>findStudents(Long faculty) {
+        Faculty faculty1 = facultyRepository.findById(faculty).get();
+        return faculty1.getStudents();
+    }
 }

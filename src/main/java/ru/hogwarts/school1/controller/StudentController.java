@@ -2,6 +2,7 @@ package ru.hogwarts.school1.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school1.model.Faculty;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.service.StudentService;
 import ru.hogwarts.school1.exception.BadRequest;
@@ -48,6 +49,24 @@ public class StudentController {
     public Collection<Student> find(@RequestParam(required = true) int age) throws NotFoundException {
         if (age > 0) {
             return studentService.findByAge(age);
+        } else {
+            throw new BadRequest();
+        }
+    }
+
+    @GetMapping("/findByAgeBetween")
+    public Collection<Student> findByAgeBetween(@RequestParam(required = true) int min, @RequestParam (required = true)int max) throws NotFoundException {
+        if (max > 0) {
+            return studentService.findByAgeBetween(min, max);
+        } else {
+            throw new BadRequest();
+        }
+    }
+
+    @GetMapping("/findFaculty")
+    public Faculty findFaculty(@RequestParam(required = true) Long studentId) throws NotFoundException {
+        if (studentId > 0) {
+            return studentService.findFaculty(studentId);
         } else {
             throw new BadRequest();
         }
