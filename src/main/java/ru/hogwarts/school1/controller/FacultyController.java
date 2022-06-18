@@ -12,7 +12,7 @@ import java.util.Collection;
 import java.util.List;
 
 @RestController
-@RequestMapping("faculty")
+@RequestMapping("/faculty")
 public class FacultyController {
     private final FacultyService facultyService;
 
@@ -26,7 +26,7 @@ public class FacultyController {
         return ResponseEntity.ok(createFacility);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity getfaculty(@PathVariable Long id) {
         Faculty getFaculty = facultyService.findFacultyById(id);
         if (getFaculty == null) {
@@ -35,13 +35,13 @@ public class FacultyController {
         return ResponseEntity.ok(getFaculty);
     }
 
-    @PutMapping("update/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity updatefaculty(@RequestBody Faculty faculty) {
         Faculty updateFaculty = facultyService.updateFaculty(faculty);
         return ResponseEntity.ok(updateFaculty);
     }
 
-    @DeleteMapping("delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity deletefaculty(@PathVariable Long id) {
         facultyService.deleteFaculty(id);
         return ResponseEntity.ok().build();
@@ -57,13 +57,13 @@ public class FacultyController {
     }
 
     @GetMapping("/findFacultyByNameOrColor")
-    public Collection<Faculty> findFacultyByNameOrColor(@RequestParam(required = false) String name, @RequestParam(required = false) String color) {
-        if ((name != null) || (color != null)) {
-            return facultyService.findFacultyByNameOrColor(name, color);
-        } else {
-            throw new BadRequest();
+    public Collection<Faculty> findFacultyByNameOrColor(@RequestParam String something) {
+        if (something != null) {
+            return facultyService.findFacultyByNameOrColor(something);
         }
+        return null;
     }
+
 
     @GetMapping("/findStudentsByFaculty")
     public Collection<Student> find(@RequestParam(required = true) Long faculty) throws NotFoundException {
@@ -73,7 +73,6 @@ public class FacultyController {
             throw new BadRequest();
         }
     }
-
 
 
 }
