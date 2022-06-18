@@ -14,6 +14,13 @@ public class Student {
     @JoinColumn(name = "faculty_id")
     private Faculty faculty;
 
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }
     @OneToOne
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;

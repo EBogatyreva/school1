@@ -9,6 +9,7 @@ import ru.hogwarts.school1.exception.BadRequest;
 import ru.hogwarts.school1.exception.NotFoundException;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -71,6 +72,16 @@ public class StudentController {
         } else {
             throw new BadRequest();
         }
+    }
+
+    @GetMapping("/getAll")
+    public List getAll(){
+        return studentService.getAll();
+    }
+
+    @GetMapping
+    public String testAPI (){
+        return "Web API is working";
     }
 
 }

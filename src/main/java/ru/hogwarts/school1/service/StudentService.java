@@ -48,4 +48,7 @@ public class StudentService {
         return student1.getFaculty();
     }
 
+    public List getAll() {
+        return studentRepository.findAll();
+    }
 }
