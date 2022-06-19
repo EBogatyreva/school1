@@ -47,8 +47,7 @@ public class AvatarController {
         Path path = Path.of(avatar.getFilePath());
         try(InputStream is = Files.newInputStream(path);
             OutputStream os = response.getOutputStream()) {
-            response.setStatus(200);
-            //ResponseEntity.status(HttpStatus.OK);
+            ResponseEntity.status(HttpStatus.OK);
             response.setContentType(avatar.getMediaType());
             response.setContentLength((int) avatar.getFileSize());
             is.transferTo(os);

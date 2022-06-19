@@ -9,11 +9,11 @@ import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.AvatarRepository;
 import ru.hogwarts.school1.repository.StudentRepository;
 
-import javax.transaction.Transactional;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
+import java.util.Optional;
 
 import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
@@ -34,7 +34,10 @@ public class AvatarService {
     }
 
     public void uploadAvatar(Long studentId, MultipartFile avatarFile) throws IOException {
-        if (studentRepository.findById(studentId).get() == null){ throw new NotFoundException();}
+        if (studentRepository.findById(studentId).get() == null) {
+            throw new NotFoundException();
+
+        }
 
         Student student = studentRepository.getById(studentId);
         Path filePath = Path.of(avatarsDir, student + "." + getExtensions(Objects.requireNonNull(avatarFile.getOriginalFilename())));
@@ -62,7 +65,6 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long id) {
-        if (studentRepository.findById(id).get() == null){ throw new NotFoundException();}
-        return avatarRepository.findById(id).orElseThrow();
+        return avatarRepository.findAvatarById(id);
     }
 }
