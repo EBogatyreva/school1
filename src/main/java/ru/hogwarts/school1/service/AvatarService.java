@@ -65,7 +65,6 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long id) {
-        Student student1 = studentRepository.findById(id).orElseThrow(NotFoundException::new);
-        return student1.getAvatar();
+        return avatarRepository.findAvatarById(id);
     }
 }

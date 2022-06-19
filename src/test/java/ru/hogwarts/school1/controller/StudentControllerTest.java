@@ -1,14 +1,22 @@
 package ru.hogwarts.school1.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.skyscreamer.jsonassert.JSONAssert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.*;
 import ru.hogwarts.school1.model.Student;
+import ru.hogwarts.school1.repository.StudentRepository;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class StudentControllerTest {
@@ -18,9 +26,14 @@ class StudentControllerTest {
     @Autowired
     private StudentController studentController;
 
+    @MockBean
+    private StudentRepository studentRepository;
+
     @Autowired
     private TestRestTemplate restTemplate;//как они связанны?!)
     // при добавлении (webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT) перестала выдаваться ошибка про бины
+
+    private static final ObjectMapper om = new ObjectMapper();
 
     @Test
     void contextLoads() throws Exception {
@@ -58,17 +71,28 @@ class StudentControllerTest {
     }
 
     @Test
-    void updateStudent() {
+    void updateStudent() throws Exception {
         Student student = new Student();
         student.setId(1L);
         student.setName("L");
         student.setAge(17);
 
-        HttpEntity<String> entity = new HttpEntity<String>("parameters");
+        when(studentRepository.save(any(Student.class))).thenReturn(student);
 
-        Assertions
-                .assertThat(this.restTemplate.exchange("http://localhost:", HttpMethod.GET, entity, String.class))
-                .isNotNull();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        HttpEntity<String> entity = new HttpEntity<>(om.writeValueAsString(student), headers);
+
+        ResponseEntity<String> response = restTemplate.exchange("/update/1", HttpMethod.PUT, entity, String.class);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        JSONAssert.assertEquals(om.writeValueAsString(student), response.getBody(), false);
+
+        verify(studentRepository, times(1)).findById(1L);
+        verify(studentRepository, times(1)).save(any(Student.class));
+
+
     }
 
     @Test
@@ -79,37 +103,22 @@ class StudentControllerTest {
         student.setAge(14);
 
         Assertions
-                .assertThat(this.restTemplate.exchange("/user", HttpMethod.DELETE, null, Void.class))
+                .assertThat(this.restTemplate.exchange("/delete/1", HttpMethod.DELETE, null, Void.class))
                 .isNotNull();
 
 
     }
 
-        @Test
-        void findByAgeBetween () {
-            Student student = new Student();
-            student.setId(1L);
-            student.setName("L");
-            student.setAge(14);
+    @Test
+    void findByAgeBetween() {
+        Student student = new Student();
+        student.setId(1L);
+        student.setName("L");
+        student.setAge(14);
 
-            Student student1 = new Student();
-            student.setId(2L);
-            student.setName("S");
-            student.setAge(16);
-
-            Assertions
-                    .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/user", String.class))
-                    .isNotNull();
-
-        }
-
-        @Test
-        void findFaculty () {
-            Student student = new Student();
-            student.setId(1L);
-            student.setName("L");
-            student.setAge(14);
-
-
-        }
+        Assertions
+                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/user", String.class))
+                .isNotNull();
     }
+
+}
