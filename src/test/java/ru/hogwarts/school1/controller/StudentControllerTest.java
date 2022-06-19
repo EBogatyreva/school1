@@ -58,7 +58,7 @@ class StudentControllerTest {
         student.setAge(14);
 
         Assertions
-                .assertThat(this.restTemplate.postForObject("http://localhost:" + port + "/user", student, String.class))
+                .assertThat(this.restTemplate.postForObject("http://localhost:" + port + "/student", student, String.class))
                 .isNotNull();
 
     }
@@ -66,7 +66,7 @@ class StudentControllerTest {
     @Test
     void getStudent() throws Exception {
         Assertions
-                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/user", String.class))
+                .assertThat(this.restTemplate.getForObject("http://localhost:" + port + "/student", String.class))
                 .isNotNull();
     }
 
@@ -84,12 +84,11 @@ class StudentControllerTest {
 
         HttpEntity<String> entity = new HttpEntity<>(om.writeValueAsString(student), headers);
 
-        ResponseEntity<String> response = restTemplate.exchange("/update/1", HttpMethod.PUT, entity, String.class);
+        ResponseEntity<String> response = restTemplate.exchange("/student/update/1", HttpMethod.PUT, entity, String.class);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         JSONAssert.assertEquals(om.writeValueAsString(student), response.getBody(), false);
 
-        verify(studentRepository, times(1)).findById(1L);
         verify(studentRepository, times(1)).save(any(Student.class));
 
 
