@@ -2,9 +2,7 @@ package ru.hogwarts.school1.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.hogwarts.school1.model.CountStudentById;
 import ru.hogwarts.school1.model.Faculty;
-import ru.hogwarts.school1.model.LastStudents;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.StudentRepository;
 
@@ -58,10 +56,10 @@ public class StudentService {
         return studentRepository.countStudentById();
     }
 
-    public Long avarageAgeOfStudents(){
+    public Double avarageAgeOfStudents(){
         return studentRepository.avarageAgeOfStudents();
     }
-    public List lastStudents(){
+    public List <Student>lastStudents(){
         return studentRepository.lastStudents();
     }
 }

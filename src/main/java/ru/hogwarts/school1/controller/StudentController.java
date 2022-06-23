@@ -2,9 +2,7 @@ package ru.hogwarts.school1.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.hogwarts.school1.model.CountStudentById;
 import ru.hogwarts.school1.model.Faculty;
-import ru.hogwarts.school1.model.LastStudents;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.service.StudentService;
 import ru.hogwarts.school1.exception.BadRequest;
@@ -92,12 +90,12 @@ public class StudentController {
     }
 
     @GetMapping("avarageAgeOfStudents")
-    public Long avarageAgeOfStudents() {
+    public Double avarageAgeOfStudents() {
         return studentService.avarageAgeOfStudents();
     }
 
     @GetMapping("lastStudents")
-    public List lastStudents() {
+    public List <Student>lastStudents() {
         return studentService.lastStudents();
     }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import ru.hogwarts.school1.exception.BadRequest;
 import ru.hogwarts.school1.exception.NotFoundException;
 import ru.hogwarts.school1.model.Avatar;
 import ru.hogwarts.school1.model.Student;
@@ -70,8 +71,10 @@ public class AvatarService {
         return avatarRepository.findAvatarById(id);
     }
 
-    public List<Avatar> getAllAvatars (Integer pageNumber, Integer pageSize){
-        PageRequest pageRequest = PageRequest.of(pageNumber-1, pageSize);
+    public List<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize) {
+        if (pageNumber == 0) {throw new BadRequest();}
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+
         return avatarRepository.findAll(pageRequest).getContent();
     }
 }
