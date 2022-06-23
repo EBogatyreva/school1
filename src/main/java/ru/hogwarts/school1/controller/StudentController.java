@@ -2,7 +2,9 @@ package ru.hogwarts.school1.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school1.model.CountStudentById;
 import ru.hogwarts.school1.model.Faculty;
+import ru.hogwarts.school1.model.LastStudents;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.service.StudentService;
 import ru.hogwarts.school1.exception.BadRequest;
@@ -75,13 +77,27 @@ public class StudentController {
     }
 
     @GetMapping("/getAll")
-    public List getAll(){
+    public List getAll() {
         return studentService.getAll();
     }
 
     @GetMapping
-    public String testAPI (){
+    public String testAPI() {
         return "Web API is working";
     }
 
+    @GetMapping("/countStudentById")
+    public Integer countStudentByIds() {
+        return studentService.countStudentById();
+    }
+
+    @GetMapping("avarageAgeOfStudents")
+    public Long avarageAgeOfStudents() {
+        return studentService.avarageAgeOfStudents();
+    }
+
+    @GetMapping("lastStudents")
+    public List lastStudents() {
+        return studentService.lastStudents();
+    }
 }
