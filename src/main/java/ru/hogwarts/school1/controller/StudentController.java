@@ -75,13 +75,27 @@ public class StudentController {
     }
 
     @GetMapping("/getAll")
-    public List getAll(){
+    public List getAll() {
         return studentService.getAll();
     }
 
     @GetMapping
-    public String testAPI (){
+    public String testAPI() {
         return "Web API is working";
     }
 
+    @GetMapping("/countStudentById")
+    public Integer countStudentByIds() {
+        return studentService.countStudentById();
+    }
+
+    @GetMapping("avarageAgeOfStudents")
+    public Double avarageAgeOfStudents() {
+        return studentService.avarageAgeOfStudents();
+    }
+
+    @GetMapping("lastStudents")
+    public List <Student>lastStudents() {
+        return studentService.lastStudents();
+    }
 }

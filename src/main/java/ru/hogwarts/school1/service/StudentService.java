@@ -51,4 +51,15 @@ public class StudentService {
     public List getAll() {
         return studentRepository.findAll();
     }
+
+    public Integer countStudentById(){
+        return studentRepository.countStudentById();
+    }
+
+    public Double avarageAgeOfStudents(){
+        return studentRepository.avarageAgeOfStudents();
+    }
+    public List <Student>lastStudents(){
+        return studentRepository.lastStudents();
+    }
 }
