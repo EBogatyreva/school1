@@ -25,7 +25,6 @@ SELECT Readers.ID,
 FROM Readers
          INNER JOIN Books ON Readers.Book_Id = Books.Book_Id
 
-
 SELECT student.name,
        student.age,
        student.faculty_id
