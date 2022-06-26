@@ -1,32 +1,29 @@
-CREATE TABLE Readers
+CREATE TABLE Peoples
 (
-    ID          REAL,
-    Name_reader TEXT PRIMARY KEY,
-    Address     varchar(255),
-    Book_Id     TEXT REFERENCES Books (Book_Id)
+    ID             REAL,
+    Name           TEXT PRIMARY KEY,
+    Age            int,
+    Driver_license boolean DEFAULT false,
+    Car_Id         TEXT REFERENCES Cars (Car_Id)
 
 );
 
-CREATE TABLE Books
+CREATE TABLE Cars
 (
-    Book_Id             TEXT PRIMARY KEY,
-    Name_Book           varchar(255),
-    Author              varchar(255),
-    Year_of_publication int
+    Car_Id TEXT PRIMARY KEY,
+    Model  varchar(255),
+    Brand  varchar(255),
+    Cost   NUMERIC
 );
 
-SELECT Readers.ID,
-       Readers.Name_reader,
-       Readers.Address,
-       Books.Book_Id,
-       Books.Name_Book,
-       Books.Author,
-       Books.Year_of_publication
-FROM Readers
-         INNER JOIN Books ON Readers.Book_Id = Books.Book_Id
+SELECT Peoples.ID,
+       Peoples.Name,
+       Peoples.Age,
+       Cars.Car_Id,
+       Cars.Model,
+       Cars.Brand,
+       Cars.Cost
+FROM Peoples
+         INNER JOIN Cars ON Peoples.Car_Id = Cars.Car_Id
 
-SELECT student.name,
-       student.age,
-       student.faculty_id
-FROM faculty
-         INNER JOIN faculty_id ON student.faculty_id = faculty.id
+
