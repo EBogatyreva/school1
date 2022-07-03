@@ -8,12 +8,7 @@ import org.springframework.stereotype.Service;
 @Profile("production")
 public class InfoService2 {
 
-    @Value("${test2.name}")
+    @Value("${server.port}")
     private String name;
 
-    @Value("${test2.code}")
-    private Integer code;
-
-    @Value("${test2.number}")
-    private Integer number;
 }
