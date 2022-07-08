@@ -9,7 +9,7 @@ import ru.hogwarts.school1.exception.BadRequest;
 import ru.hogwarts.school1.exception.NotFoundException;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/faculty")
@@ -74,5 +74,9 @@ public class FacultyController {
         }
     }
 
+    @GetMapping("/longestNameOfFaculty")
+    public Optional<Faculty> longestNameOfFaculty() throws NotFoundException {
+        return facultyService.finTheLongestName();
+    }
 
 }
