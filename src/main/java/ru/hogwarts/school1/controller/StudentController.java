@@ -94,23 +94,23 @@ public class StudentController {
         return studentService.avarageAgeOfStudents();
     }*/
 
-    @GetMapping("lastStudents")
+    @GetMapping("/lastStudents")
     public List<Student> lastStudents() {
         return studentService.lastStudents();
     }
 
     //__ДЗ 4.5.
-    @GetMapping("findAll")
-    public List<Student> findAll() {
+    @GetMapping("/findAll")
+    public List<String> findAll() {
         return studentService.findAll();
     }
 
-    @GetMapping("avarageAge")
+    @GetMapping("/avarageAge")
     public Double avarageAge() {
         return studentService.averageAge();
     }
-    @GetMapping("parallel")
-    public Integer parallel() {
+    @GetMapping("/parallel")
+    public Long parallel() {
         return studentService.parallel();
     }
 

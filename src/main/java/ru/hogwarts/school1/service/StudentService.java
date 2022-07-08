@@ -80,9 +80,10 @@ public class StudentService {
     }
 
     //_______ДЗ 4.5.
-    public List<Student> findAll() {
+    public List<String> findAll() {
         return studentRepository.findAll().stream().sorted()
-                .filter(s -> s.getName().contains("A"))
+                .filter(s -> s.getName().startsWith("A"))
+                .map(x -> x.getName().toUpperCase())
                 .collect(Collectors.toList());
     }
 
@@ -91,8 +92,8 @@ public class StudentService {
                 .collect(Collectors.averagingInt(Student::getAge));
     }
 
-    public Integer parallel() {
-         int sum = Stream.iterate(1, a -> a +1).limit(1_000_000).parallel().reduce(0, (a, b) -> a + b );
+    public Long parallel() {
+         Long sum = Long.valueOf(Stream.iterate(1, a -> a +1).limit(1_000_000).parallel().reduce(0, (a, b) -> a + b ));
         return sum;
     }
 

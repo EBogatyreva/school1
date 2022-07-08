@@ -75,7 +75,7 @@ public class FacultyController {
     }
 
     @GetMapping("/longestNameOfFaculty")
-    public Optional<Faculty> longestNameOfFaculty() throws NotFoundException {
+    public Faculty longestNameOfFaculty() throws NotFoundException {
         return facultyService.finTheLongestName();
     }
 
