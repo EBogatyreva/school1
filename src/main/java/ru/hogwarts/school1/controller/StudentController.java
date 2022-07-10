@@ -89,13 +89,31 @@ public class StudentController {
         return studentService.countStudentById();
     }
 
-    @GetMapping("avarageAgeOfStudents")
+/*    @GetMapping("avarageAgeOfStudents")
     public Double avarageAgeOfStudents() {
         return studentService.avarageAgeOfStudents();
-    }
+    }*/
 
-    @GetMapping("lastStudents")
-    public List <Student>lastStudents() {
+    @GetMapping("/lastStudents")
+    public List<Student> lastStudents() {
         return studentService.lastStudents();
     }
+
+    //__ДЗ 4.5.
+    @GetMapping("/findAll")
+    public List<String> findAll() {
+        return studentService.findAll();
+    }
+
+    @GetMapping("/avarageAge")
+    public Double avarageAge() {
+        return studentService.averageAge();
+    }
+    @GetMapping("/parallel")
+    public Long parallel() {
+        return studentService.parallel();
+    }
+
+
+
 }

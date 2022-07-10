@@ -4,12 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.hogwarts.school1.exception.NotFoundException;
 import ru.hogwarts.school1.model.Faculty;
 import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.FacultyRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacultyService {
@@ -58,5 +60,17 @@ public class FacultyService {
         logger.info("Was invoked method for find students by faculty");
         Faculty faculty1 = facultyRepository.findById(faculty).get();
         return faculty1.getStudents();
+    }
+
+
+    public Faculty finTheLongestName() {
+        return facultyRepository.findAll().stream()
+                .filter((s) -> s.getName() != null)//я по другому не додумалась)) как получить получить имя факультета
+                .reduce((s1, s2) -> {
+                    if (s1.getName().length() > s2.getName().length())
+                        return s1;
+                    else
+                        return s2;
+                }).orElseThrow(NotFoundException::new);
     }
 }

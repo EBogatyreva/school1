@@ -9,6 +9,8 @@ import ru.hogwarts.school1.model.Student;
 import ru.hogwarts.school1.repository.StudentRepository;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class StudentService {
@@ -46,7 +48,7 @@ public class StudentService {
         return studentRepository.findByAge(age);
     }
 
-    public List<Student> findByAgeBetween (int min, int max){
+    public List<Student> findByAgeBetween(int min, int max) {
         logger.info("Was invoked method findByAgeBetween");
         return studentRepository.findByAgeBetween(min, max);
     }
@@ -62,17 +64,38 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Integer countStudentById(){
+    public Integer countStudentById() {
         logger.info("Was invoked method countStudentById");
         return studentRepository.countStudentById();
     }
 
-    public Double avarageAgeOfStudents(){
+    public Double avarageAgeOfStudents() {
         logger.info("Was invoked method avarageAgeOfStudents");
         return studentRepository.avarageAgeOfStudents();
     }
-    public List <Student> lastStudents(){
+
+    public List<Student> lastStudents() {
         logger.info("Was invoked method lastStudents");
         return studentRepository.lastStudents();
     }
+
+    //_______ДЗ 4.5.
+    public List<String> findAll() {
+        return studentRepository.findAll().stream().sorted()
+                .filter(s -> s.getName().startsWith("A"))
+                .map(x -> x.getName().toUpperCase())
+                .collect(Collectors.toList());
+    }
+
+    public Double averageAge() {
+        return studentRepository.findAll().stream()
+                .collect(Collectors.averagingInt(Student::getAge));
+    }
+
+    public Long parallel() {
+         Long sum = Long.valueOf(Stream.iterate(1, a -> a +1).limit(1_000_000).parallel().reduce(0, (a, b) -> a + b ));
+        return sum;
+    }
+
+
 }
