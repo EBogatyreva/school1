@@ -114,6 +114,14 @@ public class StudentController {
         return studentService.parallel();
     }
 
+    @GetMapping("/name")
+    public void name() {
+        studentService.name();
+    }
+    @GetMapping("/sinName")
+    public void sinName() {
+        studentService.sinName();
+    }
 
 
 }
