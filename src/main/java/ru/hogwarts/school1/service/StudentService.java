@@ -99,18 +99,16 @@ public class StudentService {
 
     //ДЗ 4.6.
     public void name() {
-        studentRepository.findAll().stream()
-                .map(Student::getName).limit(2)
-                .forEach(System.out::println);
+        List<Student> listOfStudents = studentRepository.findAll().stream().sorted().toList();
 
         Thread thread = new Thread(() -> {//вывести 3 и 4 во втором потоке
-            studentRepository.findAll().stream()
+            listOfStudents.stream()
                     .map(Student::getName).skip(2).limit(2)
                     .forEach(System.out::println);
         });
 
         Thread thread1 = new Thread(() -> {//вывести 5 и 6 во втором потоке
-            studentRepository.findAll().stream()
+            listOfStudents.stream()
                     .map(Student::getName).skip(4).limit(2)
                     .forEach(System.out::println);
         });
@@ -120,19 +118,20 @@ public class StudentService {
     }
 
     public void sinName() {
+        List<Student> listOfStudents = studentRepository.findAll().stream().sorted().toList();
         synchronized (this) {
-            studentRepository.findAll().stream()
+            listOfStudents.stream()
                     .map(Student::getName).limit(2)
                     .forEach(System.out::println);
 
             Thread thread = new Thread(() -> {//вывести 3 и 4 во втором потоке
-                studentRepository.findAll().stream()
+                listOfStudents.stream()
                         .map(Student::getName).skip(2).limit(2)
                         .forEach(System.out::println);
             });
 
             Thread thread1 = new Thread(() -> {//вывести 5 и 6 во втором потоке
-                studentRepository.findAll().stream()
+                listOfStudents.stream()
                         .map(Student::getName).skip(4).limit(2)
                         .forEach(System.out::println);
             });
