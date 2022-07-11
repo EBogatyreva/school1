@@ -93,9 +93,48 @@ public class StudentService {
     }
 
     public Long parallel() {
-         Long sum = Long.valueOf(Stream.iterate(1, a -> a +1).limit(1_000_000).parallel().reduce(0, (a, b) -> a + b ));
+        Long sum = Long.valueOf(Stream.iterate(1, a -> a + 1).limit(1_000_000).parallel().reduce(0, (a, b) -> a + b));
         return sum;
     }
 
+    //ДЗ 4.6.
+    public void name() {
+        List<Student> listOfStudents = studentRepository.findAll().stream().sorted().toList();
 
+        Thread thread = new Thread(() -> {//вывести 3 и 4 во втором потоке
+            listOfStudents.stream()
+                    .map(Student::getName).skip(2).limit(2)
+                    .forEach(System.out::println);
+        });
+
+        Thread thread1 = new Thread(() -> {//вывести 5 и 6 во втором потоке
+            listOfStudents.stream()
+                    .map(Student::getName).skip(4).limit(2)
+                    .forEach(System.out::println);
+        });
+        thread.start();
+        thread1.start();
+
+    }
+
+    public void sinName() {
+        List<Student> listOfStudents = studentRepository.findAll().stream().sorted().toList();
+        synchronized (this) {
+            listOfStudents.stream()
+                    .map(Student::getName).limit(2)
+                    .forEach(System.out::println);
+
+            Thread thread = new Thread(() -> {//вывести 3 и 4 во втором потоке
+                listOfStudents.stream()
+                        .map(Student::getName).skip(2).limit(2)
+                        .forEach(System.out::println);
+            });
+
+            Thread thread1 = new Thread(() -> {//вывести 5 и 6 во втором потоке
+                listOfStudents.stream()
+                        .map(Student::getName).skip(4).limit(2)
+                        .forEach(System.out::println);
+            });
+        }
+    }
 }

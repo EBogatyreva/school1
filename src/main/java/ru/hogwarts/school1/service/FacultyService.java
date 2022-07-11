@@ -11,7 +11,6 @@ import ru.hogwarts.school1.repository.FacultyRepository;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FacultyService {
@@ -63,14 +62,16 @@ public class FacultyService {
     }
 
 
-    public Faculty finTheLongestName() {
+    public String finTheLongestName() {
         return facultyRepository.findAll().stream()
-                .filter((s) -> s.getName() != null)//я по другому не додумалась)) как получить получить имя факультета
+                //.filter((s) -> s.getName() != null)//я по другому не додумалась)) как получить получить имя факультета
+                .map(x -> x.getName())
                 .reduce((s1, s2) -> {
-                    if (s1.getName().length() > s2.getName().length())
+                    if (s1.length() > s2.length()) {
                         return s1;
-                    else
+                    } else {
                         return s2;
+                    }
                 }).orElseThrow(NotFoundException::new);
     }
 }
